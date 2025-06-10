@@ -1,0 +1,15 @@
+- name: Deploy Maven Artifact
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Create deployment directory if it does not exist
+      file:
+        path: /opt/deployment
+        state: directory
+        mode: '0755'
+
+    - name: Copy the artifact to the deployment directory
+      ansible.builtin.copy:
+        src: "/var/lib/jenkins/workspace/hellomaven-ci/target/hellomaven-ci-1.0-SNAPSHOT.jar"
+        dest: "/opt/deployment/HelloMaven.jar"
+
